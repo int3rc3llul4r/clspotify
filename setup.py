@@ -12,14 +12,14 @@ README = (HERE / "README.md").read_text()
 
 # This call to setup() does all the work
 setup(
-    name="zspotify",
+    name="clspotify",
     version="0.5.3",
     description="A spotify downloader.",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/Footsiefat/zspotify.git",
-    author="logykk",
-    author_email="logyx1@protonmail.com",
+    url="https://github.com/agent255/clspotify.git",
+    author="hr",
+    author_email="hemagna.rao@gmail.com",
     license="GPLv3",
     classifiers=[
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

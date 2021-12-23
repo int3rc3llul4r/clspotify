@@ -10,11 +10,11 @@ Following these guidelines helps show that you respect the the time and effort s
 
 ### What we are looking for
 
-ZSpotify is a community-driven project. There are many different ways to contribute. From providing tutorials and examples to help new users, reporting bugs, requesting new features, writing new code that can be added to the project, or even writing documentation.
+ClSpotify is a community-driven project. There are many different ways to contribute. From providing tutorials and examples to help new users, reporting bugs, requesting new features, writing new code that can be added to the project, or even writing documentation.
 
 ### What we aren't looking for
 
-Please don't use the issues section to request help installing or setting up the project. It should be reserved for bugs when running the code, and feature requests. Instead use the support channel in either our Discord or Matrix server.
+Please don't use the issues section to request help installing or setting up the project. It should be reserved for bugs when running the code, and feature requests. Instead use the support channel in our Matrix server.
 Please do not make a new pull request just to fix a typo or any small issue like that. We'd rather you just make an issue reporting it and we will fix it in the next commit. This helps to prevent commit spamming.
 
 # Ground rules
@@ -34,7 +34,7 @@ Here are a couple of friendly tutorials on making pull requests: http://makeapul
 # Code review process
 
 The dev team looks at Pull Requests around once per day. After feedback has been given we expect responses within one week. After a week we may close the pull request if it isn't showing any activity.
-> ZSpotify updates very frequently, often multiple times per day. If a maintainer asks you to "rebase" your PR, they're saying that a lot of code has changed, and that you need to update your branch so it's easier to merge.
+> ClSpotify updates very frequently, often multiple times per day. If a maintainer asks you to "rebase" your PR, they're saying that a lot of code has changed, and that you need to update your branch so it's easier to merge.
 
 # Community
 

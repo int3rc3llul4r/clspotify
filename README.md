@@ -1,16 +1,16 @@
-![Stars](https://img.shields.io/github/stars/Footsiefat/zspotify.svg)
-![Forks](https://img.shields.io/github/forks/Footsiefat/zspotify.svg)
-![Size](https://img.shields.io/github/repo-size/Footsiefat/zspotify)
+![Stars](https://img.shields.io/github/stars/agent255/ClSpotify.svg)
+![Forks](https://img.shields.io/github/forks/agent255/ClSpotify.svg)
+![Size](https://img.shields.io/github/repo-size/agent255/ClSpotify)
 
-# ZSpotify
+# ClSpotify
 
 ### A Spotify downloader needing only a python interpreter and ffmpeg.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/35679186/141209937-049e8a52-95fd-4028-aa6c-d70670cd0171.png">
+  <img src="./clspotify1.png">
 </p>
 
-[Discord Server](https://discord.gg/skVNQKtyFq) - [Matrix Server](https://matrix.to/#/#zspotify:matrix.org) - [Gitea Mirror](https://git.robinsmediateam.dev/Footsiefat/zspotify) - [Main Site](https://footsiefat.github.io/)
+ [Matrix Server](https://matrix.to/#/#clspotify:matrix.org) - [NotABug Mirror](https://notabug.org/proprietary-is-bad/clspotify) - [Main Site](https://agent255.github.io/clspotifyweb/)
 
 ```
 Requirements:
@@ -35,7 +35,7 @@ Python packages:
 
 ```
 Basic command line usage:
-  python zspotify <track/album/playlist/episode/artist url>   Downloads the track, album, playlist or podcast episode specified as a command line argument. If an artist url is given, all albums by specified artist will be downloaded. Can take multiple urls.
+  python zpotify <track/album/playlist/episode/artist url>   Downloads the track, album, playlist or podcast episode specified as a command line argument. If an artist url is given, all albums by specified artist will be downloaded. Can take multiple urls.
 
 Different usage modes:
   (nothing)            Download the tracks/alumbs/playlists URLs from the parameter
@@ -110,35 +110,33 @@ Liked Songs/{artist} - {song_name}.{ext}
 /home/user/downloads/{artist} - {song_name} [{id}].{ext}
 ~~~~
 
-### Docker Usage
 
-```
-Pull the official docker image (automatically updates):
-  docker pull cooper7692/zspotify-docker
-Or build the docker image yourself from the Dockerfile:
-  docker build -t zspotify .
-Create and run a container from the image:
-  docker run --rm -u $(id -u):$(id -g) -v "$PWD/zspotify:/app" -v "$PWD/zs_config.json:/zs_config.json" -v "$PWD/ZSpotify Music:/ZSpotify Music" -v "$PWD/ZSpotify Podcasts:/ZSpotify Podcasts" -it zspotify
-```
-
-### Google Colab
-There is a community maintained repo for Google Colab at [Ori5000/zspotifycolab](https://github.com/Ori5000/zspotifycolab) designed to make it easier to add songs to Google Drive or orther cloud services.
 
 ### Will my account get banned if I use this tool?
 
-~~Currently no user has reported their account getting banned after using ZSpotify.~~
 
 **There have been 2-3 reports from users who received account bans from Spotify for using this tool**.
 
-We recommend using ZSpotify with a burner account.
+We recommend using ClSpotify with a burner account.
 Alternatively, there is a configuration option labled ```DOWNLOAD_REAL_TIME```, this limits the download speed to the duration of the song being downloaded thus not appearing suspicious to Spotify.
 This option is much slower and is only recommended for premium users who wish to download songs in 320kbps without buying premium on a burner account.
 
-**Use ZSpotify at your own risk**, the developers of ZSpotify are not responsible if your account gets banned.
+**Use ClSpotify at your own risk**, the developers of ClSpotify are not responsible if your account gets banned.
 
 ### What do I do if I see "Your session has been terminated"?
 
 If you see this, don't worry! Just try logging back in. If you see the incorrect username or password error, reset your password and you should be able to log back in and continue using Spotify.
+
+
+# Credits
+Forked from: [ZSpotify](https://github.com/THIS-IS-NOT-A-BACKUP/zspotify)  (Original was taken down)
+
+Main library used: [LibreSpot](https://github.com/librespot-org/librespot#:~:text=librespot%20is%20an%20open%20source,now%20deprecated%20closed%2Dsource%20libspotify%20.)
+
+Original author: [FootsieFat](https://github.com/footsiefat)
+
+
+
 
 ### Contributing
 
