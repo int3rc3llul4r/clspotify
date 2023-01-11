@@ -199,10 +199,12 @@ def download_track(mode: str, track_id: str, extra_keys=None, disable_progressba
                             unit_divisor=1024,
                             disable=disable_progressbar
                     ) as p_bar:
-                        for _ in range(int(total_size / ZSpotify.CONFIG.get_chunk_size()) + 1):
+                        while total_size > downloaded:
                             data = stream.input_stream.stream().read(ZSpotify.CONFIG.get_chunk_size())
                             p_bar.update(file.write(data))
                             downloaded += len(data)
+                            if len(data) == 0:
+                                break
                             if ZSpotify.CONFIG.get_download_real_time():
                                 delta_real = time.time() - time_start
                                 delta_want = (downloaded / total_size) * (duration_ms/1000)

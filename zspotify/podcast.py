@@ -118,10 +118,12 @@ def download_episode(episode_id) -> None:
                 unit_divisor=1024
             ) as p_bar:
                 prepare_download_loader.stop()
-                for _ in range(int(total_size / ZSpotify.CONFIG.get_chunk_size()) + 1):
+                while total_size > downloaded:
                     data = stream.input_stream.stream().read(ZSpotify.CONFIG.get_chunk_size())
                     p_bar.update(file.write(data))
                     downloaded += len(data)
+                    if len(data) == 0:
+                        break
                     if ZSpotify.CONFIG.get_download_real_time():
                         delta_real = time.time() - time_start
                         delta_want = (downloaded / total_size) * (duration_ms/1000)
