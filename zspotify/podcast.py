@@ -83,54 +83,48 @@ def download_episode(episode_id) -> None:
     else:
         filename = podcast_name + ' - ' + episode_name
 
-        direct_download_url = ZSpotify.invoke_url(
-            'https://api-partner.spotify.com/pathfinder/v1/query?operationName=getEpisode&variables={"uri":"spotify:episode:' + episode_id + '"}&extensions={"persistedQuery":{"version":1,"sha256Hash":"224ba0fd89fcfdfb3a15fa2d82a6112d3f4e2ac88fba5c6713de04d1b72cf482"}}')[1]["data"]["episode"]["audio"]["items"][-1]["url"]
-
         download_directory = os.path.join(ZSpotify.CONFIG.get_root_podcast_path(), extra_paths)
         download_directory = os.path.realpath(download_directory)
         create_download_directory(download_directory)
 
-        if "anon-podcast.scdn.co" in direct_download_url:
-            episode_id = EpisodeId.from_base62(episode_id)
-            stream = ZSpotify.get_content_stream(
-                episode_id, ZSpotify.DOWNLOAD_QUALITY)
+        
+        episode_id = EpisodeId.from_base62(episode_id)
+        stream = ZSpotify.get_content_stream(
+            episode_id, ZSpotify.DOWNLOAD_QUALITY)
 
-            total_size = stream.input_stream.size
+        total_size = stream.input_stream.size
 
-            filepath = os.path.join(download_directory, f"{filename}.ogg")
-            if (
-                os.path.isfile(filepath)
-                and os.path.getsize(filepath) == total_size
-                and ZSpotify.CONFIG.get_skip_existing_files()
-            ):
-                Printer.print(PrintChannel.SKIPS, "\n###   SKIPPING: " + podcast_name + " - " + episode_name + " (EPISODE ALREADY EXISTS)   ###")
-                prepare_download_loader.stop()
-                return
-
+        filepath = os.path.join(download_directory, f"{filename}.ogg")
+        if (
+            os.path.isfile(filepath)
+            and os.path.getsize(filepath) == total_size
+            and ZSpotify.CONFIG.get_skip_existing_files()
+        ):
+            Printer.print(PrintChannel.SKIPS, "\n###   SKIPPING: " + podcast_name + " - " + episode_name + " (EPISODE ALREADY EXISTS)   ###")
             prepare_download_loader.stop()
-            time_start = time.time()
-            downloaded = 0
-            with open(filepath, 'wb') as file, Printer.progress(
-                desc=filename,
-                total=total_size,
-                unit='B',
-                unit_scale=True,
-                unit_divisor=1024
-            ) as p_bar:
-                prepare_download_loader.stop()
-                while total_size > downloaded:
-                    data = stream.input_stream.stream().read(ZSpotify.CONFIG.get_chunk_size())
-                    p_bar.update(file.write(data))
-                    downloaded += len(data)
-                    if len(data) == 0:
-                        break
-                    if ZSpotify.CONFIG.get_download_real_time():
-                        delta_real = time.time() - time_start
-                        delta_want = (downloaded / total_size) * (duration_ms/1000)
-                        if delta_want > delta_real:
-                            time.sleep(delta_want - delta_real)
-        else:
-            filepath = os.path.join(download_directory, f"{filename}.mp3")
-            download_podcast_directly(direct_download_url, filepath)
+            return
+
+        prepare_download_loader.stop()
+        time_start = time.time()
+        downloaded = 0
+        with open(filepath, 'wb') as file, Printer.progress(
+            desc=filename,
+            total=total_size,
+            unit='B',
+            unit_scale=True,
+            unit_divisor=1024
+        ) as p_bar:
+            prepare_download_loader.stop()
+            while total_size > downloaded:
+                data = stream.input_stream.stream().read(ZSpotify.CONFIG.get_chunk_size())
+                p_bar.update(file.write(data))
+                downloaded += len(data)
+                if len(data) == 0:
+                    break
+                if ZSpotify.CONFIG.get_download_real_time():
+                    delta_real = time.time() - time_start
+                    delta_want = (downloaded / total_size) * (duration_ms/1000)
+                    if delta_want > delta_real:
+                        time.sleep(delta_want - delta_real)
 
     prepare_download_loader.stop()
