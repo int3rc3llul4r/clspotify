@@ -69,6 +69,7 @@ OUTPUT_DEFAULT_PLAYLIST_EXT = '{playlist}/{playlist_num} - {artist} - {song_name
 OUTPUT_DEFAULT_LIKED_SONGS = 'Liked Songs/{artist} - {song_name}.{ext}'
 OUTPUT_DEFAULT_SINGLE = '{artist} - {song_name}.{ext}'
 OUTPUT_DEFAULT_ALBUM = '{artist}/{album}/{album_num} - {artist} - {song_name}.{ext}'
+OUTPUT_DEFAULT_PODCAST = '{podcast}/{episode_name}.{ext}'
 
 
 class Config:
@@ -244,6 +245,11 @@ class Config:
                 split = os.path.split(OUTPUT_DEFAULT_ALBUM)
                 return os.path.join(split[0], 'Disc {disc_number}', split[0])
             return OUTPUT_DEFAULT_ALBUM
+        if mode == 'podcast':
+            if cls.get_split_album_discs():
+                split = os.path.split(OUTPUT_DEFAULT_PODCAST)
+                return os.path.join(split[0], 'Disc {disc_number}', split[0])
+            return OUTPUT_DEFAULT_PODCAST
         raise ValueError()
 
     @classmethod

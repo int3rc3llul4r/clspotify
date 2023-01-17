@@ -99,6 +99,9 @@ The value is relative to the `ROOT_PATH`/`ROOT_PODCAST_PATH` directory and can c
 | {album_num}     | (only when downloading albums) Incrementing track number
 | {playlist}      | (only when downloading playlists) Name of the playlist 
 | {playlist_num}  | (only when downloading playlists) Incrementing track number
+| {podcast}  | (only when downloading podcasts) Name of the podcast 
+| {episode_name}  | (only when downloading podcasts) Name of the episode
+| {release_date}  | (only when downloading podcasts) Release date of the episode
 
 Example values could be:
 ~~~~
