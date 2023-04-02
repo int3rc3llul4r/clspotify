@@ -47,11 +47,21 @@ def client(args) -> None:
         download_from_user_playlist()
 
     if args.liked_songs:
+        liked_songs_list = []
+        resp_json = ZSpotify.invoke_url('https://api.spotify.com/v1/me')[1]
+        name_id = '_'.join([resp_json[DISPLAY_NAME], resp_json[ID]])
         for song in get_saved_tracks():
             if not song[TRACK][NAME] or not song[TRACK][ID]:
                 Printer.print(PrintChannel.SKIPS, '###   SKIPPING:  SONG DOES NOT EXIST ON SPOTIFY ANYMORE   ###' + "\n")
             else:
-                download_track('liked', song[TRACK][ID])
+                filename = download_track('liked', song[TRACK][ID])
+                # Use relative path for m3u file
+                liked_songs_list.append('./' + filename[len(ZSpotify.CONFIG.get_root_path()):].lstrip('../'))
+        try:
+            with open(f'{ZSpotify.CONFIG.get_root_path()}/{name_id}_liked_songs.m3u', 'w', encoding='utf-8') as file:
+                file.write('\n'.join(liked_songs_list))
+        except OSError:
+            Printer.print(PrintChannel.ERRORS, '###   ERROR: COULD NOT WRITE LIKED SONGS M3U FILE   ###' + "\n")
 
     if args.search_spotify:
         search_text = ''
