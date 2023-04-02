@@ -91,14 +91,15 @@ def download_from_urls(urls: list[str]) -> bool:
         elif playlist_id is not None:
             download = True
             playlist_songs = get_playlist_songs(playlist_id)
-            name, _ = get_playlist_info(playlist_id)
+            name, owner = get_playlist_info(playlist_id)
             enum = 1
             char_num = len(str(len(playlist_songs)))
+            playlist_songlist = []
             for song in playlist_songs:
                 if not song[TRACK][NAME] or not song[TRACK][ID]:
                     Printer.print(PrintChannel.SKIPS, '###   SKIPPING:  SONG DOES NOT EXIST ON SPOTIFY ANYMORE   ###' + "\n")
                 else:
-                    download_track('playlist', song[TRACK][ID], extra_keys=
+                    filename = download_track('playlist', song[TRACK][ID], extra_keys=
                     {
                         'playlist_song_name': song[TRACK][NAME],
                         'playlist': name,
@@ -106,7 +107,13 @@ def download_from_urls(urls: list[str]) -> bool:
                         'playlist_id': playlist_id,
                         'playlist_track_id': song[TRACK][ID]
                     })
+                    playlist_songlist.append('./' + filename[len(ZSpotify.CONFIG.get_root_path()):].lstrip('../'))
                     enum += 1
+            try:
+                with open(f'{ZSpotify.CONFIG.get_root_path()}/{owner}_{name}.m3u', 'w', encoding='utf-8') as file:
+                    file.write('\n'.join(playlist_songlist))
+            except OSError:
+                Printer.print(PrintChannel.ERRORS, '###   ERROR:  COULD NOT WRITE M3U FILE   ###' + "\n")
         elif episode_id is not None:
             download = True
             download_episode(episode_id)
